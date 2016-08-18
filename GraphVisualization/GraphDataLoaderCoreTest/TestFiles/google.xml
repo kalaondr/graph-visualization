@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<node>
+	<id>3</id>
+	<label>Google</label>
+	<adjacentNodes>
+		<id>5</id>
+	</adjacentNodes>
+</node>

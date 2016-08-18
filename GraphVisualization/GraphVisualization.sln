@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphShared", "GraphShared\GraphShared.csproj", "{FF6B5167-0402-401A-ABF4-EDDA41648522}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphDataLoaderCore", "GraphDataLoaderCore\GraphDataLoaderCore.csproj", "{525334DE-67DA-4B79-AACF-AF7619D47D13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphDataLoaderCoreTest", "GraphDataLoaderCoreTest\GraphDataLoaderCoreTest.csproj", "{3B9C3A04-7E79-4783-A387-94933F284D79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphDataStorageCore", "GraphDataStorageCore\GraphDataStorageCore.csproj", "{9D9EAAE0-684D-4D8A-96E7-608E9BD6F9EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphDataStorageCoreTest", "GraphDataStorageCoreTest\GraphDataStorageCoreTest.csproj", "{58712B57-02D8-4C99-8EDD-D07127D6061B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FF6B5167-0402-401A-ABF4-EDDA41648522}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF6B5167-0402-401A-ABF4-EDDA41648522}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF6B5167-0402-401A-ABF4-EDDA41648522}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF6B5167-0402-401A-ABF4-EDDA41648522}.Release|Any CPU.Build.0 = Release|Any CPU
+		{525334DE-67DA-4B79-AACF-AF7619D47D13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{525334DE-67DA-4B79-AACF-AF7619D47D13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{525334DE-67DA-4B79-AACF-AF7619D47D13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{525334DE-67DA-4B79-AACF-AF7619D47D13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B9C3A04-7E79-4783-A387-94933F284D79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B9C3A04-7E79-4783-A387-94933F284D79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B9C3A04-7E79-4783-A387-94933F284D79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B9C3A04-7E79-4783-A387-94933F284D79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D9EAAE0-684D-4D8A-96E7-608E9BD6F9EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D9EAAE0-684D-4D8A-96E7-608E9BD6F9EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D9EAAE0-684D-4D8A-96E7-608E9BD6F9EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D9EAAE0-684D-4D8A-96E7-608E9BD6F9EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58712B57-02D8-4C99-8EDD-D07127D6061B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58712B57-02D8-4C99-8EDD-D07127D6061B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58712B57-02D8-4C99-8EDD-D07127D6061B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58712B57-02D8-4C99-8EDD-D07127D6061B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

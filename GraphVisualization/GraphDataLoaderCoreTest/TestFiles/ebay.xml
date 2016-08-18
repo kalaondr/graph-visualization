@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<node>
+	<id>6</id>
+	<label>eBay</label>
+	<adjacentNodes>
+		<id>10</id>
+		<id>7</id>
+	</adjacentNodes>
+</node>

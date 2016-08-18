@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<node>
+	<id>7</id>
+	<label>Microsoft</label>
+	<adjacentNodes>
+		<id>6</id>
+	</adjacentNodes>
+</node>
