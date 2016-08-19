@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphDataStorageCore", "Gra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphDataStorageCoreTest", "GraphDataStorageCoreTest\GraphDataStorageCoreTest.csproj", "{58712B57-02D8-4C99-8EDD-D07127D6061B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphServicesHostApplication", "GraphServicesHostApplication\GraphServicesHostApplication.csproj", "{C9C3C6A7-786F-4914-904D-BBDE63C35ADB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{58712B57-02D8-4C99-8EDD-D07127D6061B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58712B57-02D8-4C99-8EDD-D07127D6061B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58712B57-02D8-4C99-8EDD-D07127D6061B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9C3C6A7-786F-4914-904D-BBDE63C35ADB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9C3C6A7-786F-4914-904D-BBDE63C35ADB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9C3C6A7-786F-4914-904D-BBDE63C35ADB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9C3C6A7-786F-4914-904D-BBDE63C35ADB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

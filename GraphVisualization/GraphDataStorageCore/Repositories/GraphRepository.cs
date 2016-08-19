@@ -24,6 +24,7 @@ namespace GraphDataStorageCore.Repositories
         /// <param name="graph"></param>
         public void SaveOrUpdateGraph(Graph graph)
         {
+            if (graph == null) throw new ArgumentNullException(nameof(graph));
             graphs.DeleteOne(x => x.Id == graph.Id);
             graphs.InsertOne(graph);
         }
@@ -35,6 +36,7 @@ namespace GraphDataStorageCore.Repositories
         /// <returns></returns>
         public Graph GetGraph(string id)
         {
+            if (id == null) throw new ArgumentNullException(nameof(id));
             var graph = graphs.Find(x => x.Id == id).FirstOrDefault();
             return graph;
         }

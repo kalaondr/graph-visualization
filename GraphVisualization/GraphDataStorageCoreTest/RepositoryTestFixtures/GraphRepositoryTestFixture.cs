@@ -21,6 +21,21 @@ namespace GraphDataStorageCoreTest.RepositoryTestFixtures
         }
 
         [Test]
+        public void SaveOrUpdateNullGraphThrows()
+        {
+            var graphsMock = MockRepository.GenerateStrictMock<IMongoCollection<Graph>>();
+            var databaseMock = MockRepository.GenerateStrictMock<IMongoDatabase>();
+            var dbContextMock = MockRepository.GenerateStrictMock<IGraphDbContext>();
+            dbContextMock.Expect(x => x.Database).Return(databaseMock);
+            databaseMock.Expect(x => x.GetCollection<Graph>("Graphs")).Return(graphsMock);
+            var repository = new GraphRepository(dbContextMock);
+            Assert.Throws<ArgumentNullException>(() => repository.SaveOrUpdateGraph(null));
+            dbContextMock.VerifyAllExpectations();
+            databaseMock.VerifyAllExpectations();
+            graphsMock.VerifyAllExpectations();
+        }
+
+        [Test]
         public void SaveOrUpdateGraphReplacesGraph()
         {
             var graph = new Graph("aaa");
@@ -32,8 +47,23 @@ namespace GraphDataStorageCoreTest.RepositoryTestFixtures
             graphsMock.Expect(x => x.DeleteOne(Arg<Expression<Func<Graph, bool>>>.Is.NotNull, Arg<CancellationToken>.Is.Equal(default(CancellationToken))));
             graphsMock.Expect(x => x.InsertOne(graph));
             var repository = new GraphRepository(dbContextMock);
-            dbContextMock.VerifyAllExpectations();
             repository.SaveOrUpdateGraph(graph);
+            dbContextMock.VerifyAllExpectations();
+            databaseMock.VerifyAllExpectations();
+            graphsMock.VerifyAllExpectations();
+        }
+
+        [Test]
+        public void GetGraphByNullIdThrows()
+        {
+            var graphsMock = MockRepository.GenerateStrictMock<IMongoCollection<Graph>>();
+            var databaseMock = MockRepository.GenerateStrictMock<IMongoDatabase>();
+            var dbContextMock = MockRepository.GenerateStrictMock<IGraphDbContext>();
+            dbContextMock.Expect(x => x.Database).Return(databaseMock);
+            databaseMock.Expect(x => x.GetCollection<Graph>("Graphs")).Return(graphsMock);
+            var repository = new GraphRepository(dbContextMock);
+            Assert.Throws<ArgumentNullException>(() => repository.GetGraph(null));
+            dbContextMock.VerifyAllExpectations();
             databaseMock.VerifyAllExpectations();
             graphsMock.VerifyAllExpectations();
         }
@@ -52,8 +82,8 @@ namespace GraphDataStorageCoreTest.RepositoryTestFixtures
             findFluentMock.Expect(x => x.FirstOrDefault()).Return(graph);
             var repository = new GraphRepository(dbContextMock);
             repository.GetGraph("aaa");
-            dbContextMock.VerifyAllExpectations();
             repository.SaveOrUpdateGraph(graph);
+            dbContextMock.VerifyAllExpectations();
             databaseMock.VerifyAllExpectations();
             graphsMock.VerifyAllExpectations();
             findFluentMock.VerifyAllExpectations();

@@ -56,6 +56,7 @@
     <Compile Include="Context\IGraphDbContext.cs" />
     <Compile Include="Entities\Graph.cs" />
     <Compile Include="Entities\Node.cs" />
+    <Compile Include="Extensions\ConversionMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\GraphRepository.cs" />
     <Compile Include="Repositories\IGraphRepository.cs" />
@@ -63,7 +64,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\GraphShared\GraphShared.csproj">
+      <Project>{ff6b5167-0402-401a-abf4-edda41648522}</Project>
+      <Name>GraphShared</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
