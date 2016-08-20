@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Configuration;
-using System.Web.Configuration;
 using GraphDataStorageCore.Context;
 using GraphDataStorageCore.Repositories;
 using GraphServicesHostApplication.Unity;

@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using GraphDataStorageCore.Entities;
 using GraphDataStorageCore.Extensions;
+using GraphShared.DataContracts;
 using NUnit.Framework;
+using Graph = GraphDataStorageCore.Entities.Graph;
+using Node = GraphDataStorageCore.Entities.Node;
 
-namespace GraphDataStorageCoreTest.Extensions
+namespace GraphDataStorageCoreTest.ExtensionTestFixtures
 {
     [TestFixture]
     public class ConversionExtensionsTestFixture
@@ -87,6 +89,48 @@ namespace GraphDataStorageCoreTest.Extensions
                             y =>
                                 y.Id == x.Id && y.Label == x.Label && y.AdjacentNodeIds != null &&
                                 y.AdjacentNodeIds.Equals(x.AdjacentNodeIds))));
+        }
+
+        [Test]
+        public void NullGraphConvertsToNullGraphWithEdges()
+        {
+            Graph graph = null;
+            // ReSharper disable once ExpressionIsAlwaysNull
+            var graphWithEdges = graph.ToGraphWithEdges();
+            Assert.IsNull(graphWithEdges);
+        }
+
+        [Test]
+        public void GraphConvertsToGraphWithEdges()
+        {
+            var graph = new Graph("aaa",
+                new HashSet<Node>
+                {
+                    new Node("1", "111", new HashSet<string> {"2", "3"}),
+                    new Node("2", "222", new HashSet<string> {"1", "3"}),
+                    new Node("3", "333", new HashSet<string> {"2", "1"})
+                });
+            // ReSharper disable once ExpressionIsAlwaysNull
+            var graphWithEdges = graph.ToGraphWithEdges();
+            Assert.IsNotNull(graphWithEdges);
+            Assert.AreEqual(graph.Id, graphWithEdges.Id);
+            Assert.AreEqual(graph.Nodes.Count, graphWithEdges.Nodes.Count);
+            Assert.IsTrue(
+                graph.Nodes.All(
+                    x =>
+                        graphWithEdges.Nodes.Any(
+                            y =>
+                                y.Id == x.Id && y.Label == x.Label)));
+            Assert.IsTrue(
+                graphWithEdges.Nodes.All(
+                    x =>
+                        graph.Nodes.Any(
+                            y =>
+                                y.Id == x.Id && y.Label == x.Label)));
+            Assert.AreEqual(3, graphWithEdges.Edges.Count);
+            Assert.IsTrue(graphWithEdges.Edges.Contains(new UndirectedEdge("1", "2")));
+            Assert.IsTrue(graphWithEdges.Edges.Contains(new UndirectedEdge("1", "3")));
+            Assert.IsTrue(graphWithEdges.Edges.Contains(new UndirectedEdge("2", "3")));
         }
     }
 }

@@ -17,3 +17,5 @@
 /GraphVisualization/GraphServicesHostApplication/bin
 /GraphVisualization/GraphDataLoader/bin/Debug
 /GraphVisualization/GraphDataLoader/obj/Debug
+/GraphVisualization/GraphSharedTest/obj/Debug
+/GraphVisualization/GraphSharedTest/bin/Debug

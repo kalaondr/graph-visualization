@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="GraphServicesHostApplication.Services.GraphVisualizationService" CodeBehind="GraphVisualizationService.svc.cs" %>

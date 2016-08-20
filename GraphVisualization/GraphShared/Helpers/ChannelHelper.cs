@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices.ComTypes;
-using System.ServiceModel;
-using GraphShared.ServiceContracts;
+﻿using System.ServiceModel;
 
 namespace GraphShared.Helpers
 {
