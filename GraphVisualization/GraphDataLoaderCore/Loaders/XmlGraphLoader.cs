@@ -18,7 +18,8 @@ namespace GraphDataLoaderCore.Loaders
         public XmlGraphLoader(string pathToFolderWithXmlFiles)
         {
             if (pathToFolderWithXmlFiles == null) throw new ArgumentNullException(nameof(pathToFolderWithXmlFiles));
-            if (!Directory.Exists(pathToFolderWithXmlFiles)) throw new ArgumentException($"Folder '{pathToFolderWithXmlFiles}' does not exist.");
+            if (!Directory.Exists(pathToFolderWithXmlFiles))
+                throw new ArgumentException($"Folder '{pathToFolderWithXmlFiles}' does not exist.");
             this.pathToFolderWithXmlFiles = pathToFolderWithXmlFiles;
         }
 
@@ -33,7 +34,7 @@ namespace GraphDataLoaderCore.Loaders
             var graph = new Graph(graphId, nodes);
             return graph;
         }
-        
+
         /// <summary>
         /// Gets a single node element from an xml file
         /// </summary>
@@ -48,7 +49,9 @@ namespace GraphDataLoaderCore.Loaders
                 node = document.Descendants("node")
                     .Select(
                         x =>
-                            new Node(x.Element("id").Value, x.Element("label").Value, new HashSet<string>(x.Element("adjacentNodes").Descendants("id").Select(y => y.Value).Distinct())))
+                            new Node(x.Element("id").Value, x.Element("label").Value,
+                                new HashSet<string>(
+                                    x.Element("adjacentNodes").Descendants("id").Select(y => y.Value).Distinct())))
                     .FirstOrDefault();
             }
             catch

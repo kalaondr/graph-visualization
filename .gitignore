@@ -15,3 +15,5 @@
 /GraphVisualization/GraphDataStorageCore/bin/Debug
 /GraphVisualization/GraphServicesHostApplication/obj/Debug
 /GraphVisualization/GraphServicesHostApplication/bin
+/GraphVisualization/GraphDataLoader/bin/Debug
+/GraphVisualization/GraphDataLoader/obj/Debug
