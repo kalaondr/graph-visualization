@@ -21,8 +21,8 @@ User manual:
 - Start GraphDataLoader <pathToFolderWithXmlFiles> to import a graph.
 - Start GraphVisualizationClient to view the imported graph.
 - Every edge is displayed as bidirectional, graph is considered as undirected. 
-- Select/deselect a node by double clicking it.
-- Selecting exactly two nodes will enable "Calculate shortest path" button.
+- Select/deselect a node by double clicking it, selected nodes have red borders.
+- Selecting exactly two nodes will enable the "Calculate shortest path" button.
 - Shortest path is visualized by red edges between nodes.
 - Use the "Clear all" button to deselect all nodes and hide the path visualization.
 - Use the "Reload graph" button to reload the graph from the database (use in case of GraphDataLoader reimport).
