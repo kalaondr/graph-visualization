@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using GraphAnalysisCore.Normalization;
 using GraphDataStorageCore.Context;
 using GraphDataStorageCore.Repositories;
 using GraphServicesHostApplication.Unity;
@@ -15,6 +16,7 @@ namespace GraphServicesHostApplication
             Container.Instance.RegisterType<IGraphDbContext, GraphDbContext>(
                 new InjectionConstructor(mongoDbConnectionString));
             Container.Instance.RegisterType<IGraphRepository, GraphRepository>();
+            Container.Instance.RegisterType<IGraphNormalizer, UndirectedGraphNormalizer>();
         }
 
         protected void Session_Start(object sender, EventArgs e)

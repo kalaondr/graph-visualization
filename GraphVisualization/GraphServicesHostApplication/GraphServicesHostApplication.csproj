@@ -121,6 +121,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\GraphAnalysisCore\GraphAnalysisCore.csproj">
+      <Project>{7E77E472-B44C-4E43-B650-F4DC289810F6}</Project>
+      <Name>GraphAnalysisCore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GraphDataStorageCore\GraphDataStorageCore.csproj">
       <Project>{9d9eaae0-684d-4d8a-96e7-608e9bd6f9ef}</Project>
       <Name>GraphDataStorageCore</Name>

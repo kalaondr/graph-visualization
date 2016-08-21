@@ -21,3 +21,7 @@
 /GraphVisualization/GraphSharedTest/bin/Debug
 /GraphVisualization/GraphVisualizationClient/bin/Debug
 /GraphVisualization/GraphVisualizationClient/obj/Debug
+/GraphVisualization/GraphAnalysisCore/bin/Debug
+/GraphVisualization/GraphAnalysisCore/obj/Debug
+/GraphVisualization/GraphAnalysisCoreTest/bin/Debug
+/GraphVisualization/GraphAnalysisCoreTest/obj/Debug

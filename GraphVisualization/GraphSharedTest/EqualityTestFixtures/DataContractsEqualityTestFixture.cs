@@ -1,4 +1,5 @@
-﻿using GraphShared.DataContracts;
+﻿using System.Collections.Generic;
+using GraphShared.DataContracts;
 using NUnit.Framework;
 
 namespace GraphSharedTest.EqualityTestFixtures
@@ -58,6 +59,34 @@ namespace GraphSharedTest.EqualityTestFixtures
             var secondEdge = new UndirectedEdge("2", "1");
             Assert.IsTrue(firstEdge.Equals(secondEdge));
             Assert.AreEqual(firstEdge.GetHashCode(), secondEdge.GetHashCode());
+        }
+
+        [Test]
+        public void GraphPathEqualityIsBasedOnAllProperties()
+        {
+            var firstNodeId = "1";
+            var secondNodeId = "2";
+            var thirdNodeId = "3";
+            var firstEdge = new UndirectedEdge(firstNodeId, secondNodeId);
+            var secondEdge = new UndirectedEdge(secondNodeId, thirdNodeId);
+            var firstPath = new GraphPath(firstNodeId, thirdNodeId, new List<UndirectedEdge> {firstEdge, secondEdge});
+            var secondPath = new GraphPath(firstNodeId, thirdNodeId, new List<UndirectedEdge> {firstEdge, secondEdge});
+            Assert.IsTrue(firstPath.Equals(secondPath));
+            Assert.AreEqual(firstPath.GetHashCode(), secondPath.GetHashCode());
+        }
+
+        [Test]
+        public void EdgeOrderMattersInGraphPathEquality()
+        {
+            var firstNodeId = "1";
+            var secondNodeId = "2";
+            var thirdNodeId = "3";
+            var firstEdge = new UndirectedEdge(firstNodeId, secondNodeId);
+            var secondEdge = new UndirectedEdge(secondNodeId, thirdNodeId);
+            var firstPath = new GraphPath(firstNodeId, thirdNodeId, new List<UndirectedEdge> {firstEdge, secondEdge});
+            var secondPath = new GraphPath(firstNodeId, thirdNodeId, new List<UndirectedEdge> {secondEdge, firstEdge});
+            Assert.IsFalse(firstPath.Equals(secondPath));
+            Assert.AreNotEqual(firstPath.GetHashCode(), secondPath.GetHashCode());
         }
     }
 }
