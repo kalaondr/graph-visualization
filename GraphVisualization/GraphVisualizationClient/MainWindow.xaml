@@ -3,15 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GraphVisualizationClient"
         xmlns:graphsharp="clr-namespace:GraphSharp.Controls;assembly=GraphSharp.Controls"
         xmlns:graphParts="clr-namespace:GraphVisualizationClient.GraphParts"
         xmlns:converters="clr-namespace:GraphVisualizationClient.Converters"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="Graph Visualization" Height="600" Width="800">
     <Window.Resources>
         <DataTemplate x:Key="demoTemplate" DataType="{x:Type graphParts:SelectableNode}">
-            <Border x:Name="Border" BorderBrush="Black" BorderThickness="3">
+            <Border x:Name="Border" BorderBrush="Black" BorderThickness="3" CornerRadius="20">
                 <StackPanel Orientation="Vertical" Margin="5">
                     <TextBlock Text="{Binding Path=Label, Mode=OneWay}" Foreground="Black" />
                 </StackPanel>
@@ -52,22 +52,26 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <graphParts:ShortestPathGraphLayout x:Name="graphLayout" Margin="10"
+        <xctk:BusyIndicator IsBusy="{Binding IsBusy, Mode=OneWay}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <graphParts:ShortestPathGraphLayout x:Name="graphLayout" Margin="10"
                                                 Graph="{Binding Path=Graph}"
                                                 LayoutAlgorithmType="LinLog"
                                                 OverlapRemovalAlgorithmType="FSA" />
-        </ScrollViewer>
-        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right">
-            <Button Content="Reload graph" Command="{Binding ReloadGraphCommand}" Width="Auto" Margin="5" />
-            <Button Content="Clear all" Command="{Binding ClearAllCommand}" Width="Auto"
+                </ScrollViewer>
+                <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right">
+                    <Button Content="Reload graph" Command="{Binding ReloadGraphCommand}" Width="Auto" Margin="5" />
+                    <Button Content="Clear all" Command="{Binding ClearAllCommand}" Width="Auto"
                     Margin="5" />
-            <Button Content="Calculate shortest path" Command="{Binding ComputeShortestPathCommand}" Width="Auto"
+                    <Button Content="Calculate shortest path" Command="{Binding ComputeShortestPathCommand}" Width="Auto"
                     Margin="5" />
-        </StackPanel>
+                </StackPanel>
+            </Grid>
+        </xctk:BusyIndicator>
     </Grid>
 </Window>

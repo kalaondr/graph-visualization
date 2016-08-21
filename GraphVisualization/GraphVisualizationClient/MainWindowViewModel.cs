@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using GalaSoft.MvvmLight.Command;
 using GraphShared.DataContracts;
-using GraphShared.ServiceContracts;
 using GraphVisualizationClient.Extensions;
 using GraphVisualizationClient.GraphOperations;
 using GraphVisualizationClient.GraphParts;
+using MessageBox = Xceed.Wpf.Toolkit.MessageBox;
 
 namespace GraphVisualizationClient
 {
@@ -30,20 +30,29 @@ namespace GraphVisualizationClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Failed to read setting 'ServiceHostAddress' from config file:\n {ex.Message}",
-                    "Graph Visualization", MessageBoxButton.OK, MessageBoxImage.Error);
+                ShowErrorMessage($"Failed to read setting 'ServiceHostAddress' from config file:\n {ex.Message}");
                 Environment.Exit(-1);
             }
             graphLoader = new GraphLoader(hostAddress);
             graphAnalyser = new GraphAnalyser(hostAddress);
-            ReloadGraphCommand = new RelayCommand(ReloadGraphAsync);
-            ComputeShortestPathCommand = new RelayCommand(ComputeShortestPathAsync, () => CanComputeShortestPath);
-            ClearAllCommand = new RelayCommand(() =>
-            {
-                DeselectAllNodes();
-                ClearEdgeHighlights();
-            });
-            ReloadGraphAsync();
+            ReloadGraphCommand = new RelayCommand(ReloadGraphAsync, () => !IsBusy);
+            ComputeShortestPathCommand = new RelayCommand(ComputeShortestPathAsync,
+                () => CanComputeShortestPath && !IsBusy);
+            ClearAllCommand = new RelayCommand(ClearAll, () => !IsBusy);
+            //ReloadGraphAsync();
+            LoadDummyGraph();
+        }
+
+        private void LoadDummyGraph()
+        {
+            var g = new ShortestPathGraph("1");
+            var firstNode = new SelectableNode("1", "AAA");
+            var secondNode = new SelectableNode("2", "BBBbbbbbbbbbbbbbbbbb");
+            g.AddVertex(firstNode);
+            g.AddVertex(secondNode);
+            g.AddEdge(new HighlightableEdge(firstNode, secondNode));
+            g.AddEdge(new HighlightableEdge(secondNode, firstNode));
+            Graph = g;
         }
 
         public RelayCommand ReloadGraphCommand { get; set; }
@@ -53,30 +62,86 @@ namespace GraphVisualizationClient
         public RelayCommand ClearAllCommand { get; set; }
 
         /// <summary>
+        /// Deselects all nodes and removes all edge highlights.
+        /// </summary>
+        private void ClearAll()
+        {
+            IsBusy = true;
+            DeselectAllNodes();
+            ClearEdgeHighlights();
+            IsBusy = false;
+        }
+
+        /// <summary>
         /// Reloads the graph asynchronously.
         /// </summary>
-        public async void ReloadGraphAsync()
+        private async void ReloadGraphAsync()
         {
-            var g = await Task.Run(() => graphLoader.LoadGraph());
-            Graph = g;
+            IsBusy = true;
+            try
+            {
+                var g = await Task.Run(() => graphLoader.LoadGraph());
+                Graph = g;
+            }
+            catch (Exception ex)
+            {
+                ShowErrorMessage(ex.Message);
+            }
+            IsBusy = false;
         }
 
         /// <summary>
         /// Computes the shortest path between two nodes asynchronously and highlights it in the graph.
         /// </summary>
-        public async void ComputeShortestPathAsync()
+        private async void ComputeShortestPathAsync()
         {
             if (Graph == null) return;
             var selectedNodes = Graph.Vertices.Where(x => x.IsSelected).ToList();
             if (selectedNodes.Count != 2) return;
+            IsBusy = true;
             var firstSelectedNode = selectedNodes.First();
             var secondSelectedNode = selectedNodes.Last();
             var g = Graph.ToDataContract();
-            var shortestPath =
-                await
+            try
+            {
+                var shortestPath = await
                     Task.Run(
                         () => graphAnalyser.GetShortestPathInGraph(g, firstSelectedNode.Id, secondSelectedNode.Id));
-            HighlightThePathInGraph(shortestPath);
+                HighlightThePathInGraph(shortestPath);
+            }
+            catch (Exception ex)
+            {
+                ShowErrorMessage(ex.Message);
+            }
+            IsBusy = false;
+        }
+
+        /// <summary>
+        /// Shows given error message to user.
+        /// </summary>
+        /// <param name="message"></param>
+        private static void ShowErrorMessage(string message)
+        {
+            ShowMessage(message, MessageBoxImage.Error);
+        }
+
+        /// <summary>
+        /// Shows given info message to user.
+        /// </summary>
+        /// <param name="message"></param>
+        private static void ShowInfoMessage(string message)
+        {
+            ShowMessage(message, MessageBoxImage.Information);
+        }
+
+        /// <summary>
+        /// Shows given error message to user.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="image"></param>
+        private static void ShowMessage(string message, MessageBoxImage image)
+        {
+            MessageBox.Show(message, "Graph Visualization", MessageBoxButton.OK, image);
         }
 
         /// <summary>
@@ -88,7 +153,7 @@ namespace GraphVisualizationClient
             if (shortestPath == null) return;
             if (!shortestPath.PathExists)
             {
-                MessageBox.Show("Path between the selected nodes doesn't exist.", "Graph Visualization");
+                ShowInfoMessage("Path between the selected nodes doesn't exist.");
                 return;
             }
             foreach (var edge in Graph.Edges)
@@ -133,6 +198,21 @@ namespace GraphVisualizationClient
             {
                 graph = value;
                 NotifyPropertyChanged(nameof(Graph));
+            }
+        }
+
+        private bool isBusy;
+
+        public bool IsBusy
+        {
+            get { return isBusy; }
+            private set
+            {
+                isBusy = value;
+                NotifyPropertyChanged(nameof(IsBusy));
+                ReloadGraphCommand.RaiseCanExecuteChanged();
+                ClearAllCommand.RaiseCanExecuteChanged();
+                ComputeShortestPathCommand.RaiseCanExecuteChanged();
             }
         }
 

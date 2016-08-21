@@ -1,8 +1,8 @@
 using System;
-using System.Windows;
 using GraphShared.DataContracts;
 using GraphShared.Helpers;
 using GraphShared.ServiceContracts;
+using GraphVisualizationClient.Exceptions;
 using GraphVisualizationClient.Extensions;
 using GraphVisualizationClient.GraphParts;
 
@@ -37,9 +37,8 @@ namespace GraphVisualizationClient.GraphOperations
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Failed to load the graph from web service on address {address}:\n {ex.Message}",
-                    "Graph Visualization", MessageBoxButton.OK, MessageBoxImage.Error);
-                return null;
+                throw new ServiceCallException(
+                    $"Failed to load the graph from web service on address {address}:\n {ex.Message}");
             }
             finally
             {

@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Windows;
 using GraphShared.DataContracts;
 using GraphShared.Helpers;
 using GraphShared.ServiceContracts;
-using GraphVisualizationClient.Extensions;
-using QuickGraph;
+using GraphVisualizationClient.Exceptions;
 
 namespace GraphVisualizationClient.GraphOperations
 {
@@ -39,10 +37,8 @@ namespace GraphVisualizationClient.GraphOperations
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    $"Failed to compute the shortest path using web service on address {address}:\n {ex.Message}",
-                    "Graph Visualization", MessageBoxButton.OK, MessageBoxImage.Error);
-                return null;
+                throw new ServiceCallException(
+                    $"Failed to compute the shortest path using web service on address {address}:\n {ex.Message}");
             }
             finally
             {
