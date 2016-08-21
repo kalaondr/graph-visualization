@@ -17,6 +17,7 @@ namespace GraphVisualizationClient.Extensions
         /// <returns></returns>
         public static ShortestPathGraph ToShortestPathGraph(this GraphWithEdges graphWithEdges)
         {
+            if (graphWithEdges == null) return null;
             var graph = new ShortestPathGraph(graphWithEdges.Id);
             var nodes = new Dictionary<string, SelectableNode>();
             foreach (var simpleNode in graphWithEdges.Nodes)
@@ -45,6 +46,7 @@ namespace GraphVisualizationClient.Extensions
         /// <returns></returns>
         public static Graph ToDataContract(this ShortestPathGraph shortestPathGraph)
         {
+            if (shortestPathGraph == null) return null;
             var nodes = shortestPathGraph.Vertices.Select(x => new Node(x.Id, x.Label)).ToDictionary(x => x.Id);
             foreach (var edge in shortestPathGraph.Edges)
             {

@@ -39,22 +39,9 @@ namespace GraphVisualizationClient
             ComputeShortestPathCommand = new RelayCommand(ComputeShortestPathAsync,
                 () => CanComputeShortestPath && !IsBusy);
             ClearAllCommand = new RelayCommand(ClearAll, () => !IsBusy);
-            //ReloadGraphAsync();
-            LoadDummyGraph();
+            ReloadGraphAsync();
         }
-
-        private void LoadDummyGraph()
-        {
-            var g = new ShortestPathGraph("1");
-            var firstNode = new SelectableNode("1", "AAA");
-            var secondNode = new SelectableNode("2", "BBBbbbbbbbbbbbbbbbbb");
-            g.AddVertex(firstNode);
-            g.AddVertex(secondNode);
-            g.AddEdge(new HighlightableEdge(firstNode, secondNode));
-            g.AddEdge(new HighlightableEdge(secondNode, firstNode));
-            Graph = g;
-        }
-
+        
         public RelayCommand ReloadGraphCommand { get; set; }
 
         public RelayCommand ComputeShortestPathCommand { get; set; }
