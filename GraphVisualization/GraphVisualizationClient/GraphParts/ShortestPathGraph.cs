@@ -7,8 +7,11 @@ namespace GraphVisualizationClient.GraphParts
     /// </summary>
     public class ShortestPathGraph : BidirectionalGraph<SelectableNode, HighlightableEdge>
     {
-        public ShortestPathGraph() : base(false)
+        public string Id { get; set; }
+
+        public ShortestPathGraph(string id) : base(false)
         {
+            Id = id;
         }
     }
 }

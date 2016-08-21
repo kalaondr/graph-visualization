@@ -2,7 +2,10 @@
 
 namespace GraphAnalysisCore.Analysis
 {
-    public class SearchableNode
+    /// <summary>
+    /// Internal shortest path finder node representation, with a previous node property for storing the path through graph.
+    /// </summary>
+    internal class SearchableNode
     {
         public SearchableNode(string id, List<string> adjacentNodeIds)
         {
@@ -10,11 +13,20 @@ namespace GraphAnalysisCore.Analysis
             AdjacentNodeIds = adjacentNodeIds;
         }
 
+        /// <summary>
+        /// Id of the node
+        /// </summary>
         public string Id { get; private set; }
 
+        /// <summary>
+        /// Reference to previous node, set during search.
+        /// </summary>
         public SearchableNode PreviousNode { get; set; }
 
-        public List<string> AdjacentNodeIds { get; set; }
+        /// <summary>
+        /// Ids of adjacent nodes.
+        /// </summary>
+        public List<string> AdjacentNodeIds { get; private set; }
 
         protected bool Equals(SearchableNode other)
         {

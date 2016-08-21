@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using GraphVisualizationClient.GraphParts;
+﻿using GraphVisualizationClient.GraphParts;
 
 namespace GraphVisualizationClient.GraphOperations
 {

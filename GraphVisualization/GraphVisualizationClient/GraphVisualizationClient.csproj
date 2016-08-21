@@ -113,8 +113,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Converters\BoolToColorConverter.cs" />
     <Compile Include="Extensions\ConversionMethods.cs" />
+    <Compile Include="GraphOperations\GraphAnalyser.cs" />
     <Compile Include="GraphOperations\GraphLoader.cs" />
+    <Compile Include="GraphOperations\IGraphAnalyser.cs" />
     <Compile Include="GraphOperations\IGraphLoader.cs" />
     <Compile Include="GraphParts\HighlightableEdge.cs" />
     <Compile Include="GraphParts\SelectableNode.cs" />

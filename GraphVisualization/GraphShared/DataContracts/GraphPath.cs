@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.Serialization;
 
@@ -65,7 +64,7 @@ namespace GraphShared.DataContracts
                 hashCode = (hashCode*397) ^ PathExists.GetHashCode();
                 return EdgeSequence.Aggregate(hashCode,
                     (current, undirectedEdge) => (current*397) ^ (undirectedEdge?.GetHashCode() ?? 0));
-                    // would need to be changed for extremely large lists
+                // would need to be changed for extremely large lists
             }
         }
     }

@@ -51,6 +51,7 @@
     <Compile Include="Extensions\ConversionMethods.cs" />
     <Compile Include="Helpers\ChannelHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceContracts\IGraphAnalysisService.cs" />
     <Compile Include="ServiceContracts\IGraphStorageService.cs" />
     <Compile Include="ServiceContracts\IGraphVisualizationService.cs" />
   </ItemGroup>

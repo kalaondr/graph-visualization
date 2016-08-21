@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using GraphShared.DataContracts;
 using GraphVisualizationClient.GraphParts;
 
@@ -16,7 +17,7 @@ namespace GraphVisualizationClient.Extensions
         /// <returns></returns>
         public static ShortestPathGraph ToShortestPathGraph(this GraphWithEdges graphWithEdges)
         {
-            var graph = new ShortestPathGraph();
+            var graph = new ShortestPathGraph(graphWithEdges.Id);
             var nodes = new Dictionary<string, SelectableNode>();
             foreach (var simpleNode in graphWithEdges.Nodes)
             {
@@ -34,6 +35,22 @@ namespace GraphVisualizationClient.Extensions
                 // GraphSharp undirected graph doesn't work, use bidirectional with two edges instead
                 graph.AddEdge(new HighlightableEdge(secondNode, firstNode));
             }
+            return graph;
+        }
+
+        /// <summary>
+        /// Converts GraphSharp graph to data contract graph.
+        /// </summary>
+        /// <param name="shortestPathGraph"></param>
+        /// <returns></returns>
+        public static Graph ToDataContract(this ShortestPathGraph shortestPathGraph)
+        {
+            var nodes = shortestPathGraph.Vertices.Select(x => new Node(x.Id, x.Label)).ToDictionary(x => x.Id);
+            foreach (var edge in shortestPathGraph.Edges)
+            {
+                nodes[edge.Source.Id].AdjacentNodeIds.Add(edge.Target.Id);
+            }
+            var graph = new Graph(shortestPathGraph.Id, new HashSet<Node>(nodes.Values));
             return graph;
         }
     }
